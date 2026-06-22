@@ -8,9 +8,8 @@
  *
  * Aucune dépendance externe : Node 20+ fournit fetch() en global.
  *
- * Pour ajouter un produit à suivre : ajoutez une entrée dans PRODUCTS ci-dessous.
- * Le front (pokemon-price-tracker) détectera automatiquement le nouveau produit
- * dès qu'il apparaît dans prices.json.
+ * Pour ajouter un produit : ajoutez une entrée dans PRODUCTS ci-dessous.
+ * Le front détectera automatiquement le nouveau produit dans prices.json.
  */
 
 import { readFile, writeFile } from "node:fs/promises";
@@ -21,10 +20,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_PATH = path.join(__dirname, "..", "data", "prices.json");
 
 /* -------------------------------------------------------------------------- */
-/*  1. Produits suivis — la seule chose à éditer pour ajouter/retirer un suivi */
+/*  1. Produits suivis — la seule liste à éditer                              */
 /* -------------------------------------------------------------------------- */
 const PRODUCTS = [
-  const PRODUCTS = [
   { id: "abyss-eye-jp",      name: "アビスアイ (JP)",       set: "MEGA", region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード アビスアイ BOX 未開封" },
   { id: "ninja-spinner-jp",  name: "ニンジャスピナー (JP)", set: "MEGA", region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード ニンジャスピナー BOX 未開封" },
   { id: "muniki-zero-jp",    name: "ムニキスゼロ (JP)",     set: "MEGA", region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード ムニキスゼロ BOX 未開封" },
@@ -41,11 +39,9 @@ const PRODUCTS = [
 /*  2. Adapters — une fonction par source. Renvoie un nombre (prix) ou null.   */
 /* -------------------------------------------------------------------------- */
 const adapters = {
-  /**
-   * Rakuten Ichiba Item Search API (officielle, gratuite avec un applicationId).
-   * Doc : https://webservice.rakuten.co.jp/documentation/ichiba-item-search
-   * On prend la MÉDIANE des prix des résultats pour lisser les annonces aberrantes.
-   */
+  // Rakuten Ichiba Item Search API (officielle, gratuite avec applicationId).
+  // https://webservice.rakuten.co.jp/documentation/ichiba-item-search
+  // On prend la MÉDIANE des prix pour lisser les annonces aberrantes.
   async rakuten(product) {
     const appId = process.env.RAKUTEN_APP_ID;
     if (!appId) throw new Error("RAKUTEN_APP_ID manquant (secret du repo).");
@@ -56,8 +52,8 @@ const adapters = {
     url.searchParams.set("applicationId", appId);
     url.searchParams.set("keyword", product.query);
     url.searchParams.set("hits", "30");
-    url.searchParams.set("sort", "+itemPrice"); // du moins cher au plus cher
-    url.searchParams.set("availability", "1"); // en stock uniquement
+    url.searchParams.set("sort", "+itemPrice");
+    url.searchParams.set("availability", "1");
     url.searchParams.set("format", "json");
 
     const res = await fetch(url, { headers: { "User-Agent": "pokemon-monitor" } });
@@ -67,16 +63,12 @@ const adapters = {
     const prices = (data.Items || [])
       .map((wrap) => wrap.Item?.itemPrice)
       .filter((p) => typeof p === "number" && p > 0)
-      // garde-fou : on écarte les accessoires/sleeves bon marché et les lots
       .filter((p) => p >= 3000 && p <= 200000);
 
     return median(prices);
   },
 
-  /**
-   * Adapter de secours pour tester le pipeline sans clé API.
-   * Génère une petite variation autour du dernier prix connu.
-   */
+  // Adapter de secours pour tester sans clé API.
   async sample(product, lastPrice) {
     const base = lastPrice ?? 10000;
     const drift = Math.round((Math.random() - 0.5) * base * 0.03);
@@ -95,7 +87,7 @@ function median(arr) {
 }
 
 function today() {
-  return new Date().toISOString().slice(0, 10); // YYYY-MM-DD (UTC)
+  return new Date().toISOString().slice(0, 10);
 }
 
 async function loadData() {
@@ -117,9 +109,8 @@ async function main() {
   for (const cfg of PRODUCTS) {
     let entry = byId.get(cfg.id);
     if (!entry) {
-      // Nouveau produit : on l'initialise. Le front le détectera tout seul.
       entry = { ...cfg, history: [] };
-      delete entry.query; // on ne publie pas le mot-clé de scraping
+      delete entry.query;
       data.products.push(entry);
       byId.set(cfg.id, entry);
       console.log(`+ nouveau produit suivi : ${cfg.id}`);
@@ -131,7 +122,7 @@ async function main() {
       price = await adapters[cfg.source](cfg, lastPrice);
     } catch (err) {
       console.warn(`! ${cfg.id} — échec récupération : ${err.message}`);
-      continue; // on n'écrit pas de point bidon ce jour-là
+      continue;
     }
     if (price == null) {
       console.warn(`! ${cfg.id} — aucun prix exploitable, ignoré.`);
@@ -139,11 +130,8 @@ async function main() {
     }
 
     const existing = entry.history.find((h) => h.date === date);
-    if (existing) {
-      existing.price = price; // ré-exécution le même jour : on écrase
-    } else {
-      entry.history.push({ date, price });
-    }
+    if (existing) existing.price = price;
+    else entry.history.push({ date, price });
     console.log(`= ${cfg.id} : ${price} ${cfg.currency}`);
   }
 
