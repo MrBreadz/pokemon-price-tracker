@@ -44,25 +44,33 @@ const adapters = {
   // On prend la MÉDIANE des prix pour lisser les annonces aberrantes.
   async rakuten(product) {
     const appId = process.env.RAKUTEN_APP_ID;
-    if (!appId) throw new Error("RAKUTEN_APP_ID manquant (secret du repo).");
+    const accessKey = process.env.RAKUTEN_ACCESS_KEY;
+    if (!appId || !accessKey)
+      throw new Error("RAKUTEN_APP_ID / RAKUTEN_ACCESS_KEY manquant (secrets du repo).");
 
+    // Nouvelle API Rakuten (depuis 2026) : domaine openapi.rakuten.co.jp,
+    // version 20260401, auth = applicationId + accessKey (les deux obligatoires).
     const url = new URL(
-      "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601"
+      "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401"
     );
     url.searchParams.set("applicationId", appId);
     url.searchParams.set("keyword", product.query);
     url.searchParams.set("hits", "30");
-    url.searchParams.set("sort", "+itemPrice");
-    url.searchParams.set("availability", "1");
     url.searchParams.set("format", "json");
+    url.searchParams.set("formatVersion", "2");
 
-    const res = await fetch(url, { headers: { "User-Agent": "pokemon-monitor" } });
+    // accessKey passé en en-tête (autorisé par la doc) : il ne fuite pas dans l'URL
+    const res = await fetch(url, {
+      headers: { "User-Agent": "pokemon-monitor", accessKey },
+    });
     const body = await res.text();
     if (!res.ok) throw new Error(`Rakuten HTTP ${res.status} — ${body.slice(0, 300)}`);
     const data = JSON.parse(body);
 
-    const prices = (data.Items || [])
-      .map((wrap) => wrap.Item?.itemPrice)
+    // robuste aux variations de format (formatVersion 1/2, casse Items/items)
+    const rows = data.items || data.Items || [];
+    const prices = rows
+      .map((row) => row.itemPrice ?? row.item?.itemPrice ?? row.Item?.itemPrice)
       .filter((p) => typeof p === "number" && p > 0)
       .filter((p) => p >= 3000 && p <= 200000);
 
