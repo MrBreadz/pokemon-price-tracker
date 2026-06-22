@@ -1,108 +1,96 @@
 {
   "schema_version": 1,
-  "last_updated": null,
-  "products": []
-}
-      "id": "sv11b-display-jp",
-      "name": "SV11B — Display (JP)",
-      "set": "SV11B",
+  "last_updated": "2026-06-22T16:30:21.324Z",
+  "products": [
+    {
+      "id": "abyss-eye-jp",
+      "name": "アビスアイ (JP)",
+      "set": "MEGA",
       "region": "JP",
       "currency": "JPY",
-      "source": "sample",
-      "history": [
-        {
-          "date": "2026-05-23",
-          "price": 13200
-        },
-        {
-          "date": "2026-05-30",
-          "price": 12950
-        },
-        {
-          "date": "2026-06-06",
-          "price": 12600
-        },
-        {
-          "date": "2026-06-13",
-          "price": 12740
-        },
-        {
-          "date": "2026-06-20",
-          "price": 12480
-        },
-        {
-          "date": "2026-06-22",
-          "price": 12390
-        }
-      ]
+      "source": "rakuten",
+      "history": []
     },
     {
-      "id": "sv11w-display-jp",
-      "name": "SV11W — Display (JP)",
-      "set": "SV11W",
+      "id": "ninja-spinner-jp",
+      "name": "ニンジャスピナー (JP)",
+      "set": "MEGA",
       "region": "JP",
       "currency": "JPY",
-      "source": "sample",
-      "history": [
-        {
-          "date": "2026-05-23",
-          "price": 11800
-        },
-        {
-          "date": "2026-05-30",
-          "price": 11900
-        },
-        {
-          "date": "2026-06-06",
-          "price": 12100
-        },
-        {
-          "date": "2026-06-13",
-          "price": 12350
-        },
-        {
-          "date": "2026-06-20",
-          "price": 12600
-        },
-        {
-          "date": "2026-06-22",
-          "price": 12720
-        }
-      ]
+      "source": "rakuten",
+      "history": []
     },
     {
-      "id": "sv10-display-jp",
-      "name": "SV10 — Display (JP)",
-      "set": "SV10",
+      "id": "muniki-zero-jp",
+      "name": "ムニキスゼロ (JP)",
+      "set": "MEGA",
       "region": "JP",
       "currency": "JPY",
-      "source": "sample",
-      "history": [
-        {
-          "date": "2026-05-23",
-          "price": 9800
-        },
-        {
-          "date": "2026-05-30",
-          "price": 9750
-        },
-        {
-          "date": "2026-06-06",
-          "price": 9700
-        },
-        {
-          "date": "2026-06-13",
-          "price": 9680
-        },
-        {
-          "date": "2026-06-20",
-          "price": 9650
-        },
-        {
-          "date": "2026-06-22",
-          "price": 9620
-        }
-      ]
+      "source": "rakuten",
+      "history": []
+    },
+    {
+      "id": "mega-dream-ex-jp",
+      "name": "MEGAドリームex (JP)",
+      "set": "MEGA",
+      "region": "JP",
+      "currency": "JPY",
+      "source": "rakuten",
+      "history": []
+    },
+    {
+      "id": "inferno-x-jp",
+      "name": "インフェルノX (JP)",
+      "set": "MEGA",
+      "region": "JP",
+      "currency": "JPY",
+      "source": "rakuten",
+      "history": []
+    },
+    {
+      "id": "mega-brave-jp",
+      "name": "メガブレイブ (JP)",
+      "set": "MEGA",
+      "region": "JP",
+      "currency": "JPY",
+      "source": "rakuten",
+      "history": []
+    },
+    {
+      "id": "mega-symphonia-jp",
+      "name": "メガシンフォニア (JP)",
+      "set": "MEGA",
+      "region": "JP",
+      "currency": "JPY",
+      "source": "rakuten",
+      "history": []
+    },
+    {
+      "id": "black-bolt-jp",
+      "name": "ブラックボルト (JP)",
+      "set": "S&V",
+      "region": "JP",
+      "currency": "JPY",
+      "source": "rakuten",
+      "history": []
+    },
+    {
+      "id": "white-flare-jp",
+      "name": "ホワイトフレア (JP)",
+      "set": "S&V",
+      "region": "JP",
+      "currency": "JPY",
+      "source": "rakuten",
+      "history": []
+    },
+    {
+      "id": "rocket-glory-jp",
+      "name": "ロケット団の栄光 (JP)",
+      "set": "S&V",
+      "region": "JP",
+      "currency": "JPY",
+      "source": "rakuten",
+      "history": []
     }
   ]
 }
