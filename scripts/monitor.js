@@ -19,6 +19,10 @@ import path from "node:path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_PATH = path.join(__dirname, "..", "data", "prices.json");
 
+// Rakuten exige un en-tête Referer correspondant à l'un de vos « Allowed websites ».
+// Mettez ici un domaine déclaré dans votre application Rakuten.
+const RAKUTEN_REFERER = "https://mrbreadz.github.io/";
+
 /* -------------------------------------------------------------------------- */
 /*  1. Produits suivis — la seule liste à éditer                              */
 /* -------------------------------------------------------------------------- */
@@ -61,7 +65,7 @@ const adapters = {
 
     // accessKey passé en en-tête (autorisé par la doc) : il ne fuite pas dans l'URL
     const res = await fetch(url, {
-      headers: { "User-Agent": "pokemon-monitor", accessKey },
+      headers: { "User-Agent": "pokemon-monitor", accessKey, Referer: RAKUTEN_REFERER },
     });
     const body = await res.text();
     if (!res.ok) throw new Error(`Rakuten HTTP ${res.status} — ${body.slice(0, 300)}`);
