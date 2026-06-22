@@ -8,7 +8,7 @@
 /* >>> À PERSONNALISER : remplacez VOTRE-PSEUDO par votre identifiant GitHub <<<
  * Branche "main", fichier data/prices.json. raw.githubusercontent.com envoie
  * des en-têtes CORS permissifs, donc le fetch navigateur fonctionne. */
-const GH_USER = "VOTRE-PSEUDO";
+const GH_USER = "MrBreadz";
 const GH_REPO = "pokemon-price-tracker";
 const GH_BRANCH = "main";
 const DATA_URL = `https://raw.githubusercontent.com/${GH_USER}/${GH_REPO}/${GH_BRANCH}/data/prices.json`;
