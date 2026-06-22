@@ -15,6 +15,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import https from "node:https";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_PATH = path.join(__dirname, "..", "data", "prices.json");
@@ -63,12 +64,14 @@ const adapters = {
     url.searchParams.set("format", "json");
     url.searchParams.set("formatVersion", "2");
 
-    // accessKey passé en en-tête (autorisé par la doc) : il ne fuite pas dans l'URL
-    const res = await fetch(url, {
-      headers: { "User-Agent": "pokemon-monitor", accessKey, Referer: RAKUTEN_REFERER },
+    // accessKey + Referer en en-têtes. On utilise node:https (et non fetch) car
+    // fetch supprime silencieusement l'en-tête Referer (en-tête « interdit »).
+    const { status, body } = await httpsGet(url.toString(), {
+      "User-Agent": "pokemon-monitor",
+      accessKey,
+      Referer: RAKUTEN_REFERER,
     });
-    const body = await res.text();
-    if (!res.ok) throw new Error(`Rakuten HTTP ${res.status} — ${body.slice(0, 300)}`);
+    if (status !== 200) throw new Error(`Rakuten HTTP ${status} — ${body.slice(0, 300)}`);
     const data = JSON.parse(body);
 
     // robuste aux variations de format (formatVersion 1/2, casse Items/items)
@@ -103,6 +106,22 @@ function today() {
   return new Date().toISOString().slice(0, 10);
 }
 
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// GET HTTPS avec en-têtes arbitraires (Referer inclus, contrairement à fetch).
+function httpsGet(urlString, headers) {
+  return new Promise((resolve, reject) => {
+    const req = https.get(urlString, { headers }, (res) => {
+      let body = "";
+      res.setEncoding("utf8");
+      res.on("data", (c) => (body += c));
+      res.on("end", () => resolve({ status: res.statusCode, body }));
+    });
+    req.on("error", reject);
+    req.setTimeout(15000, () => req.destroy(new Error("timeout")));
+  });
+}
+
 async function loadData() {
   try {
     return JSON.parse(await readFile(DATA_PATH, "utf8"));
@@ -131,6 +150,7 @@ async function main() {
 
     const lastPrice = entry.history.at(-1)?.price ?? null;
     let price = null;
+    if (cfg.source !== "sample") await sleep(1500); // ~1 req/s : on reste sous la limite Rakuten
     try {
       price = await adapters[cfg.source](cfg, lastPrice);
     } catch (err) {
