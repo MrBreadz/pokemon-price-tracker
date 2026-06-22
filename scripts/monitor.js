@@ -57,8 +57,9 @@ const adapters = {
     url.searchParams.set("format", "json");
 
     const res = await fetch(url, { headers: { "User-Agent": "pokemon-monitor" } });
-    if (!res.ok) throw new Error(`Rakuten HTTP ${res.status}`);
-    const data = await res.json();
+    const body = await res.text();
+    if (!res.ok) throw new Error(`Rakuten HTTP ${res.status} — ${body.slice(0, 300)}`);
+    const data = JSON.parse(body);
 
     const prices = (data.Items || [])
       .map((wrap) => wrap.Item?.itemPrice)
