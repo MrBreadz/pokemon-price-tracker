@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "last_updated": "2026-06-22T03:00:00Z",
-  "products": [
-    {
+  "last_updated": null,
+  "products": []
+}
       "id": "sv11b-display-jp",
       "name": "SV11B — Display (JP)",
       "set": "SV11B",
