@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PokéIndex — Suivi des prix displays JP</title>
+    <meta
+      name="description"
+      content="Monitoring des prix des displays Pokémon TCG (JP)."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <div class="glow" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand__mark">◈</span>
+        <span class="brand__name">Poké<span>Index</span></span>
+      </div>
+      <div class="region-switch" role="tablist" aria-label="Région">
+        <button class="region region--active" role="tab" aria-selected="true">
+          JP
+        </button>
+        <button class="region region--soon" role="tab" aria-selected="false" disabled>
+          FR <span class="soon">bientôt</span>
+        </button>
+      </div>
+      <div class="updated" id="updated">—</div>
+    </header>
+
+    <main class="wrap">
+      <section class="kpis" id="global-kpis" aria-label="Indicateurs globaux"></section>
+
+      <section class="grid" id="product-grid" aria-label="Produits suivis">
+        <div class="state" id="loading">Chargement des prix…</div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span id="foot-meta"></span>
+      <span class="foot__src">données : pokemon-monitor · lecture via raw.githubusercontent.com</span>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

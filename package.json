@@ -1,0 +1,13 @@
+{
+  "name": "pokemon-price-tracker",
+  "version": "1.0.0",
+  "description": "Dashboard de monitoring des prix des displays Pokémon TCG (JP).",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "monitor": "node scripts/monitor.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "last_updated": "2026-06-22T03:00:00Z",
+  "products": [
+    {
+      "id": "sv11b-display-jp",
+      "name": "SV11B — Display (JP)",
+      "set": "SV11B",
+      "region": "JP",
+      "currency": "JPY",
+      "source": "sample",
+      "history": [
+        {
+          "date": "2026-05-23",
+          "price": 13200
+        },
+        {
+          "date": "2026-05-30",
+          "price": 12950
+        },
+        {
+          "date": "2026-06-06",
+          "price": 12600
+        },
+        {
+          "date": "2026-06-13",
+          "price": 12740
+        },
+        {
+          "date": "2026-06-20",
+          "price": 12480
+        },
+        {
+          "date": "2026-06-22",
+          "price": 12390
+        }
+      ]
+    },
+    {
+      "id": "sv11w-display-jp",
+      "name": "SV11W — Display (JP)",
+      "set": "SV11W",
+      "region": "JP",
+      "currency": "JPY",
+      "source": "sample",
+      "history": [
+        {
+          "date": "2026-05-23",
+          "price": 11800
+        },
+        {
+          "date": "2026-05-30",
+          "price": 11900
+        },
+        {
+          "date": "2026-06-06",
+          "price": 12100
+        },
+        {
+          "date": "2026-06-13",
+          "price": 12350
+        },
+        {
+          "date": "2026-06-20",
+          "price": 12600
+        },
+        {
+          "date": "2026-06-22",
+          "price": 12720
+        }
+      ]
+    },
+    {
+      "id": "sv10-display-jp",
+      "name": "SV10 — Display (JP)",
+      "set": "SV10",
+      "region": "JP",
+      "currency": "JPY",
+      "source": "sample",
+      "history": [
+        {
+          "date": "2026-05-23",
+          "price": 9800
+        },
+        {
+          "date": "2026-05-30",
+          "price": 9750
+        },
+        {
+          "date": "2026-06-06",
+          "price": 9700
+        },
+        {
+          "date": "2026-06-13",
+          "price": 9680
+        },
+        {
+          "date": "2026-06-20",
+          "price": 9650
+        },
+        {
+          "date": "2026-06-22",
+          "price": 9620
+        }
+      ]
+    }
+  ]
+}
