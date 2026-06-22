@@ -24,25 +24,17 @@ const DATA_PATH = path.join(__dirname, "..", "data", "prices.json");
 /*  1. Produits suivis — la seule chose à éditer pour ajouter/retirer un suivi */
 /* -------------------------------------------------------------------------- */
 const PRODUCTS = [
-  {
-    id: "sv11b-display-jp",
-    name: "SV11B — Display (JP)",
-    set: "SV11B",
-    region: "JP",
-    currency: "JPY",
-    source: "rakuten",
-    // Mot-clé envoyé à l'API Rakuten. Soyez précis pour éviter le bruit.
-    query: "ポケモンカード SV11B ブラックボルト BOX 未開封",
-  },
-  {
-    id: "sv11w-display-jp",
-    name: "SV11W — Display (JP)",
-    set: "SV11W",
-    region: "JP",
-    currency: "JPY",
-    source: "rakuten",
-    query: "ポケモンカード SV11W ホワイトフレア BOX 未開封",
-  },
+  const PRODUCTS = [
+  { id: "abyss-eye-jp",      name: "アビスアイ (JP)",       set: "MEGA", region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード アビスアイ BOX 未開封" },
+  { id: "ninja-spinner-jp",  name: "ニンジャスピナー (JP)", set: "MEGA", region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード ニンジャスピナー BOX 未開封" },
+  { id: "muniki-zero-jp",    name: "ムニキスゼロ (JP)",     set: "MEGA", region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード ムニキスゼロ BOX 未開封" },
+  { id: "mega-dream-ex-jp",  name: "MEGAドリームex (JP)",   set: "MEGA", region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード MEGAドリームex BOX 未開封" },
+  { id: "inferno-x-jp",      name: "インフェルノX (JP)",    set: "MEGA", region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード インフェルノX BOX 未開封" },
+  { id: "mega-brave-jp",     name: "メガブレイブ (JP)",     set: "MEGA", region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード メガブレイブ BOX 未開封" },
+  { id: "mega-symphonia-jp", name: "メガシンフォニア (JP)", set: "MEGA", region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード メガシンフォニア BOX 未開封" },
+  { id: "black-bolt-jp",     name: "ブラックボルト (JP)",   set: "S&V",  region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード ブラックボルト BOX 未開封" },
+  { id: "white-flare-jp",    name: "ホワイトフレア (JP)",   set: "S&V",  region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード ホワイトフレア BOX 未開封" },
+  { id: "rocket-glory-jp",   name: "ロケット団の栄光 (JP)", set: "S&V",  region: "JP", currency: "JPY", source: "rakuten", query: "ポケモンカード ロケット団の栄光 BOX 未開封" },
 ];
 
 /* -------------------------------------------------------------------------- */
